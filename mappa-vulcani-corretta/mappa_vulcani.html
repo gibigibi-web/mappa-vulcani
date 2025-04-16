@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mappa dei Vulcani Italiani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; }
+    .popup-content { text-align: center; }
+    .popup-content img { width: 400px; display: block; margin: 0 auto 10px; }
+    .popup-content audio { width: 100%; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map').setView([40.8, 14.1], 6);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © OpenStreetMap contributors'
+  }).addTo(map);
+
+  var vulcani = [
+    {
+      nome: "Vulcano",
+      coord: [38.4037, 14.962],
+      img: "https://i.ibb.co/Ngch378w/vulcano-immagine.webp",
+      audio: "https://gibigibi-web.github.io/mappa-vulcani/audio/vulcano%20audio.mp3"
+    },
+    {
+      nome: "Stromboli",
+      coord: [38.789, 15.213],
+      img: "https://i.ibb.co/xKDRz9wt/stromboli-immagine.jpg",
+      audio: "https://gibigibi-web.github.io/mappa-vulcani/audio/stromboli-audio.mp3"
+    },
+    {
+      nome: "Etna",
+      coord: [37.751, 14.993],
+      img: "https://i.ibb.co/qM1LS62Z/etna-immagine.jpg",
+      audio: "https://gibigibi-web.github.io/mappa-vulcani/audio/etna-audio.mp3"
+    },
+    {
+      nome: "Campi Flegrei",
+      coord: [40.826, 14.139],
+      img: "https://i.ibb.co/NGVNLs4/campi-flegrei-immagine.webp",
+      audio: "https://gibigibi-web.github.io/mappa-vulcani/audio/campi-flegrei-audio.mp3"
+    },
+    {
+      nome: "Vesuvio",
+      coord: [40.822, 14.428],
+      img: "https://i.ibb.co/wrWwNcvF/vesuvio-immagine.jpg",
+      audio: "https://gibigibi-web.github.io/mappa-vulcani/audio/vesuvio-audio.mp3"
+    }
+  ];
+
+  vulcani.forEach(v => {
+    var popup = `
+      <div class="popup-content">
+        <h3>${v.nome}</h3>
+        <img src="${v.img}" alt="${v.nome}">
+        <audio controls>
+          <source src="${v.audio}" type="audio/mpeg">
+          Il tuo browser non supporta l'audio.
+        </audio>
+      </div>
+    `;
+    L.marker(v.coord).addTo(map).bindPopup(popup);
+  });
+</script>
+</body>
+</html>
